@@ -1,0 +1,13 @@
+# Port range (inclusive)
+START_PORT=18000
+END_PORT=18100   # 100 ports:
+
+- Rename the env file to **`.env`**.  
+- Place the NGINX configuration files inside `conf.d`, then restart the NGINX service.  
+
+# Tip
+- Access the container via its name in compose.yaml from the CLI.
+- docker exec -it container_name /bin/sh
+
+# Inside container
+- Your project files are under /www/dev  

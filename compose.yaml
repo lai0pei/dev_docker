@@ -1,0 +1,44 @@
+name : podman
+services:
+  nginx :
+    container_name : container_nginx
+    image : arm64v8/nginx
+    ports : 
+      - "18000-18100:18000-18100"
+    working_dir : "/www/dev"
+    volumes : 
+       - ${PROJECT_PATH}:/www/dev/:rw
+       - ./conf.d:/etc/nginx/conf.d
+  php : 
+    container_name : container_php
+    build : 
+      context : .
+      dockerfile : ./php
+    read_only: false
+    expose : 
+      - 9000
+    working_dir : "/www/dev"
+    volumes:
+      - ${PROJECT_PATH}:/www/dev:rw
+  redis : 
+    container_name : container_redis
+    image : redis
+    ports : 
+      - 26379:6379/tcp
+    expose : 
+      - 6379
+  pgsql : 
+    container_name : container_pgsql
+    image : postgres:alpine3.22
+    ports : 
+      - 25432:5432/tcp
+    expose : 
+      - 5432
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER : postgres
+      POSTGRES_PASSWORD : postgres
+      POSTGRES_DB : postgres
+volumes : 
+   PhpVol :
+
