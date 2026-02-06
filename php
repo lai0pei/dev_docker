@@ -13,4 +13,5 @@ RUN install-php-extensions zip
 RUN install-php-extensions exif 
 RUN install-php-extensions intl
 RUN docker-php-ext-install pdo_mysql
+RUN install-php-extensions pcntl
 RUN install-php-extensions redis

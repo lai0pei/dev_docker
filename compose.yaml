@@ -39,6 +39,15 @@ services:
       POSTGRES_USER : postgres
       POSTGRES_PASSWORD : postgres
       POSTGRES_DB : postgres
+  mysql : 
+    container_name : container_mysql
+    image : arm64v8/mysql:8.0
+    expose : 
+        - 3306
+    ports : 
+      - 23306:3306/tcp
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
 volumes : 
    PhpVol :
 

@@ -1,2 +1,2 @@
 # folder under which contains different projects
-PROJECT_PATH=/Users/dev/web/
+PROJECT_PATH=${HOME}/dev/web
