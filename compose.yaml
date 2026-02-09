@@ -1,53 +1,76 @@
-name : podman
+name: podman
 services:
-  nginx :
-    container_name : container_nginx
-    image : arm64v8/nginx
-    ports : 
-      - "18000-18100:18000-18100"
-    working_dir : "/www/dev"
-    volumes : 
-       - ${PROJECT_PATH}:/www/dev/:rw
-       - ./conf.d:/etc/nginx/conf.d
-  php : 
-    container_name : container_php
-    build : 
-      context : .
-      dockerfile : ./php
-    read_only: false
-    expose : 
-      - 9000
-    working_dir : "/www/dev"
+  nginx:
+    container_name: dev_nginx
+    image: arm64v8/nginx
+    ports:
+      - "18000-18025:18000-18025"
+    working_dir: "/www/dev"
     volumes:
-      - ${PROJECT_PATH}:/www/dev:rw
-  redis : 
-    container_name : container_redis
-    image : redis
-    ports : 
+      - ${WEB_PATH}:/www/dev/:rw
+      - ./conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php 
+  go:
+    container_name: dev_go
+    build:
+      context: .
+      dockerfile: ./go:latest
+    working_dir: "/www/dev"
+    volumes:
+      - ${GO_PATH}:/www/dev/:rw
+  rust:
+    container_name: dev_rust
+    build:
+      context: .
+      dockerfile: ./rust:latest
+    working_dir: "/www/dev"
+    volumes:
+      - ${RUST_PATH}:/www/dev/:rw
+  php:
+    container_name: dev_php
+    build:
+      context: .
+      dockerfile: ./php
+    read_only: false
+    expose:
+      - 9000
+    working_dir: "/www/dev"
+    volumes:
+      - ${WEB_PATH}:/www/dev:rw
+  redis:
+    container_name: dev_redis
+    image: redis
+    ports:
       - 26379:6379/tcp
-    expose : 
+    expose:
       - 6379
-  pgsql : 
-    container_name : container_pgsql
-    image : postgres:alpine3.22
-    ports : 
+    volumes:
+      - ./data/redis:/data:rw
+  pgsql:
+    container_name: dev_pgsql
+    image: postgres:alpine3.22
+    ports:
       - 25432:5432/tcp
-    expose : 
+    expose:
       - 5432
     shm_size: 128mb
     environment:
-      POSTGRES_USER : postgres
-      POSTGRES_PASSWORD : postgres
-      POSTGRES_DB : postgres
-  mysql : 
-    container_name : container_mysql
-    image : arm64v8/mysql:8.0
-    expose : 
-        - 3306
-    ports : 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./data/pgsql:/var/lib/postgresql/:rw
+  mysql:
+    container_name: dev_mysql
+    image: arm64v8/mysql:8.0
+    expose:
+      - 3306
+    ports:
       - 23306:3306/tcp
     environment:
       MYSQL_ROOT_PASSWORD: mysql
-volumes : 
-   PhpVol :
-
+    volumes:
+      - ./data/mysql:/var/lib/mysql:rw
+volumes:
+  DevVol:

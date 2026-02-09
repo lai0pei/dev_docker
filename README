@@ -1,3 +1,4 @@
+# ARM ONLY
 # Port range (inclusive)
 START_PORT=18000
 END_PORT=18100   # 100 ports:

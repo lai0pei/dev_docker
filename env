@@ -1,2 +1,4 @@
 # folder under which contains different projects
-PROJECT_PATH=${HOME}/dev/web
+WEB_PATH=${HOME}/dev/web
+GO_PATH=${HOME}/dev/golang
+RUST_PATH=${HOME}/dev/rust
