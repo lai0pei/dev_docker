@@ -17,6 +17,7 @@ services:
       context: .
       dockerfile: ./go:latest
     working_dir: "/www/dev"
+    tty: true
     volumes:
       - ${GO_PATH}:/www/dev/:rw
   rust:
@@ -25,6 +26,7 @@ services:
       context: .
       dockerfile: ./rust:latest
     working_dir: "/www/dev"
+    tty: true
     volumes:
       - ${RUST_PATH}:/www/dev/:rw
   php:
