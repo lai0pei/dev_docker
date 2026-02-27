@@ -1,0 +1,54 @@
+{
+  "duckduckgo": {
+    "command": "docker",
+    "args": ["run", "-i", "--rm", "mcp/duckduckgo"]
+  },
+  "youtube-transcript": {
+    "command": "docker",
+    "args": ["run", "-i", "--rm", "mcp/youtube-transcript"]
+  },
+  "github": {
+    "command": "docker",
+    "args": [
+      "run", "-i", "--rm",
+      "-e", "GITHUB_PERSONAL_ACCESS_TOKEN=ghp_your_token_here",
+      "ghcr.io/github/github-mcp-server"
+    ]
+  },
+  "sequentialthinking": {
+    "command": "docker",
+    "args": ["run", "-i", "--rm", "mcp/sequentialthinking"]
+  },
+  "fetch": {
+    "command": "docker",
+    "args": ["run", "-i", "--rm", "mcp/fetch"]
+  },
+  "filesystem": {
+    "command": "docker",
+    "args": [
+      "run", "-i", "--rm",
+      "-v", "/path/to/your/projects:/workspace",
+      "mcp/filesystem", "/workspace"
+    ]
+  },
+  "memory": {
+    "command": "docker",
+    "args": [
+      "run", "-i", "--rm",
+      "-v", "mcp-memory:/data",
+      "mcp/memory"
+    ]
+  },
+  "git": {
+    "command": "docker",
+    "args": [
+      "run", "-i", "--rm",
+      "-v", "/path/to/your/repos:/repos:ro",
+      "mcp/git"
+    ]
+  },
+  "context7": {
+    "command": "docker",
+    "args": ["run", "-i", "--rm", "mcp/context7"]
+  }
+}

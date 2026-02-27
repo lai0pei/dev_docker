@@ -2,3 +2,10 @@
 WEB_PATH=${HOME}/dev/web
 GO_PATH=${HOME}/dev/golang
 RUST_PATH=${HOME}/dev/rust
+
+# GitHub (free personal access token from github.com/settings/tokens)
+GITHUB_TOKEN=ghp_your_token_here
+
+# Directories to expose to MCP servers
+WORKSPACE_DIR=/path/to/your/projects
+REPOS_DIR=/path/to/your/git/repos

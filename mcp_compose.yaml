@@ -1,0 +1,121 @@
+services:
+  # ============================================
+  # 1. DuckDuckGo Search (FREE - No API key!)
+  # ============================================
+  # Image: mcp/duckduckgo (official Docker MCP Catalog)
+  # Tools: web search + content fetching
+  duckduckgo:
+    image: mcp/duckduckgo
+    container_name: mcp-duckduckgo
+    restart: on-failure
+    stdin_open: true
+    mem_limit: 1g
+    cpus: 0.5
+
+  # ============================================
+  # 2. YouTube Transcript
+  # ============================================
+  # Image: mcp/youtube-transcript (official Docker MCP Catalog)
+  # Tools: get transcript, get transcript with timestamps, get video info
+  youtube-transcript:
+    image: mcp/youtube-transcript
+    container_name: mcp-youtube-transcript
+    restart: on-failure
+    stdin_open: true
+    mem_limit: 1g
+    cpus: 0.5
+
+  # ============================================
+  # 3. GitHub Official
+  # ============================================
+  # Tools: 40+ tools for repos, PRs, issues, commits
+  # github:
+  #   image: ghcr.io/github/github-mcp-server
+  #   container_name: mcp-github
+  #   restart: on-failure
+  #   stdin_open: true
+  #   environment:
+  #     - GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_TOKEN}
+  #   mem_limit: 2g
+  #   cpus: 1
+
+  # ============================================
+  # 4. Sequential Thinking
+  # ============================================
+  # Tools: step-by-step reasoning for complex problems
+  sequentialthinking:
+    image: mcp/sequentialthinking
+    container_name: mcp-sequentialthinking
+    restart: on-failure
+    stdin_open: true
+    mem_limit: 1g
+    cpus: 0.5
+
+  # ============================================
+  # 5. Fetch (Web Content Reader)
+  # ============================================
+  # Tools: fetch any URL, clean & return LLM-friendly content
+  fetch:
+    image: mcp/fetch
+    container_name: mcp-fetch
+    restart: on-failure
+    stdin_open: true
+    mem_limit: 1g
+    cpus: 0.5
+
+  # ============================================
+  # 6. Filesystem
+  # ============================================
+  # Tools: browse, read, write files in sandboxed directory
+  filesystem:
+    image: mcp/filesystem
+    container_name: mcp-filesystem
+    restart: on-failure
+    stdin_open: true
+    volumes:
+      - ${WORKSPACE_DIR:-./workspace}:/workspace:rw
+    mem_limit: 1g
+    cpus: 0.5
+
+  # ============================================
+  # 7. Memory (Knowledge Graph)
+  # ============================================
+  # Tools: persistent entity/relationship memory across sessions
+  memory:
+    image: mcp/memory
+    container_name: mcp-memory
+    restart: on-failure
+    stdin_open: true
+    volumes:
+      - memory-data:/data
+    mem_limit: 1g
+    cpus: 0.5
+
+  # ============================================
+  # 8. Git
+  # ============================================
+  # Tools: inspect branches, diffs, logs, commits
+  git:
+    image: mcp/git
+    container_name: mcp-git
+    restart: on-failure
+    stdin_open: true
+    volumes:
+      - ${REPOS_DIR:-./repos}:/repos:ro
+    mem_limit: 1g
+    cpus: 0.5
+
+  # ============================================
+  # 9. Context7 (Live Docs for Coding)
+  # ============================================
+  # Tools: inject up-to-date library docs into prompts
+  context7:
+    image: mcp/context7
+    container_name: mcp-context7
+    restart: on-failure
+    stdin_open: true
+    mem_limit: 1g
+    cpus: 0.5
+
+volumes:
+  memory-data:
