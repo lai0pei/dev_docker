@@ -15,3 +15,4 @@ RUN install-php-extensions intl
 RUN docker-php-ext-install pdo_mysql
 RUN install-php-extensions pcntl
 RUN install-php-extensions redis
+RUN install-php-extensions yaml 
